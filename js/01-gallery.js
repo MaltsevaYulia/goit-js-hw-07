@@ -1,7 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
+// console.log(galleryItems);
 const galaryContainer=document.querySelector('.gallery')
 const galaryMarkup = createGalaryMarkup(galleryItems);
 galaryContainer.insertAdjacentHTML('beforeend',galaryMarkup)
@@ -27,5 +27,38 @@ function createGalaryMarkup(galleryItems) {
 galaryContainer.addEventListener('click', onImgClick);
 
 function onImgClick(evt) {
-    console.log(evt.target);
+    //блокируем переход по ссылке по умолчанию
+    evt.preventDefault();
+    // console.log(evt.target); то где кликнули
+    // console.log(evt.currentTarget); то где поймали клик
+    
+    if (evt.target.nodeName !== 'IMG') {
+        return
+    }
+    const instance = basicLightbox.create(`
+    <div class="modal">
+        <img
+            class="gallery__image" src="${evt.target.dataset.source}" width="800" heigth="600"
+            />
+    </div>
+`)
+
+    instance.show()
+    
+    window.addEventListener('keydown', onEscKeyPress);
+    function onEscKeyPress(event) {
+        // console.log(event.code );
+          if (event.code === 'Escape') {
+              instance.close()
+              window.removeEventListener('keydown', onEscKeyPress);
+          }
+        }
+        //     window.addEventListener('keydown', (event) => {
+//         console.log(event.code);
+//         if (event.code === 'Escape') {
+//             instance.close()
+//   }
+//     }    
+//     );
+    
 }
