@@ -17,17 +17,7 @@ function createGalaryMarkup(galleryItems) {
 
 }
 
-galaryContainer.addEventListener('click', onImgClick);
 
-function onImgClick(evt) {
-    //блокируем переход по ссылке по умолчанию
-    evt.preventDefault();
-   
-    if (evt.target.nodeName !== 'IMG') {
-        return
-    }
+const lightbox = new SimpleLightbox('.gallery a', { /* options */captionsData: 'alt',captionPosition:'bottom',captionDelay:	250 });
 
-    const lightbox = new SimpleLightbox('.gallery a', { /* options */captionsData: 'alt',captionPosition:'bottom',captionDelay:	250 });
 
-}
-   
